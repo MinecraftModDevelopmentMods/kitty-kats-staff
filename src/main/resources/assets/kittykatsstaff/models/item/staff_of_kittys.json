@@ -1,0 +1,21 @@
+{
+  "forge_marker": 1,
+  "variants": {
+    "inventory": [{
+      "model": "kittykatsstaff:item/staff_head",
+      "textures": {
+        "particle": "kittykatsstaff:items/face_textures"
+      },
+      "custom": {
+        "base_model": "kittykatsstaff:item/staff_of_kittys_staff",
+        "base_textures": {
+          "fake": "value"
+        },
+        "gui_model": "kittykatsstaff:item/staff_head",
+        "gui_textures": {
+          "all": "kittykatsstaff:items/face_textures"
+        }
+      }
+    }]
+  }
+}
