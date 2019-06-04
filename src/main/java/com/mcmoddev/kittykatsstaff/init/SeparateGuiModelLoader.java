@@ -38,7 +38,7 @@ public class SeparateGuiModelLoader implements ICustomModelLoader {
         return new ResourceLocation(KittyKatsStaff.MODID, path);
     }
 
-    public static final ResourceLocation FAKE_LOCATION = location("models/item/staff_of_kittys");
+    public static final ResourceLocation FAKE_LOCATION = location("models/block/custom/separate_gui");
 
 
     @Override
