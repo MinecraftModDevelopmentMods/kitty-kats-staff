@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#",
+    "#"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:obsidian"
+    }
+  },
+  "result": {
+    "item": "kittykatsstaff:obsidian_rod",
+    "count": 2
+  }
+}

@@ -4,16 +4,16 @@
     "inventory": [{
       "model": "kittykatsstaff:custom/separate_gui",
       "textures": {
-        "particle": "kittykatsstaff:items/staff_head"
+        "particle": "kittykatsstaff:items/staff_of_kittys"
       },
       "custom": {
         "base_model": "kittykatsstaff:item/staff_of_kittys",
         "base_textures": {
           "fake": "kittykatsstaff:items/staff_of_kittys"
         },
-        "gui_model": "kittykatsstaff:item/staff_head",
+        "gui_model": "kittykatsstaff:item/staff_of_kittys",
         "gui_textures": {
-          "all": "kittykatsstaff:items/staff_head"
+          "all": "kittykatsstaff:items/staff_of_kittys"
         }
       }
     }]

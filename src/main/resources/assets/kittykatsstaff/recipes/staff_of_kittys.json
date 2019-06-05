@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#G#",
+    "G/G",
+    "#g#"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:wool",
+      "data": 14
+    },
+    "G": {
+      "item": "minecraft:fish",
+      "data": 0
+    },
+    "/": {
+      "item": "kittykatsstaff:obsidian_rod"
+    },
+    "g": {
+      "item": "minecraft:gold_ingot"
+    }
+  },
+  "result": {
+    "item": "kittykatsstaff:staff_of_kittys",
+    "count": 1
+  }
+}
