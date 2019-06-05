@@ -5,6 +5,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.stats.StatList;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
@@ -19,8 +20,7 @@ import java.util.Random;
 public class ItemKittyKatsStaff extends Item {
 
     public ItemKittyKatsStaff() {
-        //TODO Add a cooldown so the number of charges can be turned into a config option.
-        int numberOfCharges = 10;
+        int numberOfCharges = 19;
         setMaxStackSize(1);
         setMaxDamage(numberOfCharges + 1);
     }
@@ -37,7 +37,6 @@ public class ItemKittyKatsStaff extends Item {
     @Override
     public boolean getIsRepairable(ItemStack repairableItem, ItemStack repairMaterial) {
         //Repair with cooked or raw fish.
-        //TODO In 1.13 Fish will no longer have metadata so we can oredict all the fish for this.
         if (allowedItems == null) {
             allowedItems = OreDictionary.getOres("foodFish");
         }
@@ -63,9 +62,10 @@ public class ItemKittyKatsStaff extends Item {
         double y = player.rayTrace(30, 1).getBlockPos().getY();
         double z = player.rayTrace(30, 1).getBlockPos().getZ();
 
-        if (!world.isRemote) {
-            if (hand == EnumHand.MAIN_HAND) {
-                if (!outOfUses(item)) {
+        if (hand == EnumHand.MAIN_HAND) {
+            if (!outOfUses(item)) {
+
+                if (!world.isRemote) {
                     //TODO In 1.14 change ocelots to cats, they have been split into there own entity and ocelots can
                     // no longer be tamed but gain trust for the player who feeds them fish.
                     EntityOcelot ocelot = new EntityOcelot(world);
@@ -74,18 +74,22 @@ public class ItemKittyKatsStaff extends Item {
                     ocelot.setTamedBy(player);
                     ocelot.setTameSkin(randomSkinValue);
                     world.spawnEntity(ocelot);
-                    world.playSound(null, x, y, z, SoundEvents.ENTITY_EGG_THROW, SoundCategory.PLAYERS,
-                            0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
-
-                    if (!player.capabilities.isCreativeMode) {
-                        item.damageItem(1, player);
-                    }
-                } else {
-                    world.playSound(null, x, y, z, SoundEvents.ENTITY_ITEM_BREAK, SoundCategory.PLAYERS,
-                            0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
                 }
+
+                world.playSound(null, x, y, z, SoundEvents.ENTITY_EGG_THROW, SoundCategory.PLAYERS,
+                        0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
+                player.getCooldownTracker().setCooldown(this, 1200);
+
+                if (!player.capabilities.isCreativeMode) {
+                    item.damageItem(1, player);
+                }
+            } else {
+                world.playSound(null, x, y, z, SoundEvents.ENTITY_ITEM_BREAK, SoundCategory.PLAYERS,
+                        0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
             }
         }
+
+        player.addStat(StatList.getObjectUseStats(this));
         return new ActionResult<>(EnumActionResult.SUCCESS, item);
     }
 }

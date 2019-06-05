@@ -34,7 +34,8 @@ public class KittyKatsStaff {
 
     public static final CreativeTabs CREATIVE_TAB = new CreativeTabs(MODID) {
         @Override
-        @Nonnull public ItemStack createIcon() {
+        @Nonnull
+        public ItemStack createIcon() {
             return new ItemStack(KKSItems.STAFF_OF_KITTYS);
         }
     };
@@ -52,6 +53,7 @@ public class KittyKatsStaff {
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
         LOGGER.info("shiny stick: *summons cats* Meow!");
+        //TODO in 1.13 fish no longer use metadata so we can oredict all the fish rather than just two.
         OreDictionary.registerOre("foodFish", Items.FISH);
         OreDictionary.registerOre("foodFish", Items.COOKED_FISH);
     }
