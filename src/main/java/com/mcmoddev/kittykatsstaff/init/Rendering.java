@@ -16,10 +16,10 @@ public class Rendering {
 
     @SubscribeEvent
     public static void registerItemModels(ModelRegistryEvent event) {
+        ModelLoaderRegistry.registerLoader(new SeparateGuiModelLoader());
         //TODO Remove once models are fully working.
         //itemModels(KKSItems.STAFF_OF_KITTYS, 0);
         itemModels(KKSItems.OBSIDIAN_ROD, 0);
-        ModelLoaderRegistry.registerLoader(new SeparateGuiModelLoader());
     }
 
     private static void itemModels(Item item, int meta) {

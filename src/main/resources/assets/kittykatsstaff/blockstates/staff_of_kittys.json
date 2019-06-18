@@ -7,11 +7,11 @@
         "particle": "kittykatsstaff:items/staff_of_kittys"
       },
       "custom": {
-        "base_model": "kittykatsstaff:item/staff_of_kittys",
+        "base_model": "kittykatsstaff:item/staff",
         "base_textures": {
-          "fake": "kittykatsstaff:items/staff_of_kittys"
+          "fake": "value"
         },
-        "gui_model": "kittykatsstaff:item/staff_of_kittys",
+        "gui_model": "kittykatsstaff:item/staff_head",
         "gui_textures": {
           "all": "kittykatsstaff:items/staff_of_kittys"
         }
