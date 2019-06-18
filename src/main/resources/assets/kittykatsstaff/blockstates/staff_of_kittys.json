@@ -9,7 +9,7 @@
       "custom": {
         "base_model": "kittykatsstaff:item/staff",
         "base_textures": {
-          "fake": "value"
+          "fake": "kittykatsstaff:items/staff_of_kittys"
         },
         "gui_model": "kittykatsstaff:item/staff_head",
         "gui_textures": {
