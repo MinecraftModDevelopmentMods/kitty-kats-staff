@@ -78,10 +78,10 @@ public class ItemKittyKatsStaff extends Item {
 
                 world.playSound(null, x, y, z, SoundEvents.ENTITY_EGG_THROW, SoundCategory.PLAYERS,
                         0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
-                player.getCooldownTracker().setCooldown(this, 1200);
 
                 if (!player.capabilities.isCreativeMode) {
                     item.damageItem(1, player);
+                    player.getCooldownTracker().setCooldown(this, 1200);
                 }
             } else {
                 world.playSound(null, x, y, z, SoundEvents.ENTITY_ITEM_BREAK, SoundCategory.PLAYERS,

@@ -11,8 +11,8 @@
       "data": 14
     },
     "G": {
-      "item": "minecraft:fish",
-      "data": 0
+      "type": "forge:ore_dict",
+      "ore": "foodFish"
     },
     "/": {
       "item": "kittykatsstaff:obsidian_rod"
