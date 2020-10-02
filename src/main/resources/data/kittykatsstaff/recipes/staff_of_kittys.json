@@ -7,12 +7,10 @@
   ],
   "key": {
     "#": {
-      "item": "minecraft:wool",
-      "data": 14
+      "item": "minecraft:red_wool"
     },
     "G": {
-      "type": "forge:ore_dict",
-      "ore": "foodFish"
+      "tag": "minecraft:fishes"
     },
     "/": {
       "item": "kittykatsstaff:obsidian_rod"
