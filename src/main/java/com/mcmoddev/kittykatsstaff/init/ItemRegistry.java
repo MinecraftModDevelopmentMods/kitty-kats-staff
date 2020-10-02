@@ -3,28 +3,16 @@ package com.mcmoddev.kittykatsstaff.init;
 import com.mcmoddev.kittykatsstaff.KittyKatsStaff;
 import com.mcmoddev.kittykatsstaff.common.items.ItemKittyKatsStaff;
 import net.minecraft.item.Item;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
 
-import javax.annotation.Nonnull;
-
-@Mod.EventBusSubscriber(modid = KittyKatsStaff.MODID)
 public class ItemRegistry {
 
-    @SubscribeEvent
-    public static void onItemRegister(@Nonnull RegistryEvent.Register<Item> event) {
-        event.getRegistry().registerAll(
-                nameItem(new ItemKittyKatsStaff(), "staff_of_kittys"),
-                nameItem(new Item(), "obsidian_rod")
-        );
-    }
+    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, KittyKatsStaff.MODID);
 
-    private static Item nameItem(@Nonnull Item item, String name) {
-        item
-                .setRegistryName(name)
-                .setTranslationKey(KittyKatsStaff.MODID + "." + name)
-                .setCreativeTab(KittyKatsStaff.CREATIVE_TAB);
-        return item;
-    }
+    public static final RegistryObject<Item> KITTY_KATS_STAFF = ITEMS.register("staff_of_kittys", ItemKittyKatsStaff::new);
+    public static final RegistryObject<Item> OBSIDIAN_ROD = ITEMS.register("obsidian_rod", () ->
+            new Item (new Item.Properties().group(KittyKatsStaff.CREATIVE_TAB)));
+
 }
