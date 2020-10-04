@@ -1,6 +1,6 @@
-package com.mcmoddev.kittykatsstaff;
+package cat.tophat.kittykatsstaff;
 
-import com.mcmoddev.kittykatsstaff.init.ItemRegistry;
+import cat.tophat.kittykatsstaff.init.ItemRegistry;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.eventbus.api.IEventBus;

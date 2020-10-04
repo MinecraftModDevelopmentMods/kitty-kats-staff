@@ -1,7 +1,7 @@
-package com.mcmoddev.kittykatsstaff.init;
+package cat.tophat.kittykatsstaff.init;
 
-import com.mcmoddev.kittykatsstaff.KittyKatsStaff;
-import com.mcmoddev.kittykatsstaff.common.items.ItemKittyKatsStaff;
+import cat.tophat.kittykatsstaff.KittyKatsStaff;
+import cat.tophat.kittykatsstaff.common.items.ItemKittyKatsStaff;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;

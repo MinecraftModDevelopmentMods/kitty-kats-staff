@@ -1,6 +1,6 @@
-package com.mcmoddev.kittykatsstaff.common.items;
+package cat.tophat.kittykatsstaff.common.items;
 
-import com.mcmoddev.kittykatsstaff.KittyKatsStaff;
+import cat.tophat.kittykatsstaff.KittyKatsStaff;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.passive.CatEntity;
 import net.minecraft.entity.player.PlayerEntity;
