@@ -11,17 +11,16 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 public class KittyKatsStaff {
 
     public static final String MODID = "kittykatsstaff";
-
-    public KittyKatsStaff(){
-        final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-
-        ItemRegistry.ITEMS.register(modEventBus);
-    }
-
     public static ItemGroup CREATIVE_TAB = new ItemGroup(KittyKatsStaff.MODID) {
         @Override
         public ItemStack createIcon() {
             return new ItemStack(ItemRegistry.KITTY_KATS_STAFF.get());
         }
     };
+
+    public KittyKatsStaff() {
+        final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+
+        ItemRegistry.ITEMS.register(modEventBus);
+    }
 }

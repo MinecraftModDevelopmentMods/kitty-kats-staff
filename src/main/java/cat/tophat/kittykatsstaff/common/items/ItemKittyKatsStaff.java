@@ -8,7 +8,11 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.Tag;
-import net.minecraft.util.*;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.Vec3d;
@@ -20,19 +24,18 @@ import java.util.Random;
 public class ItemKittyKatsStaff extends Item {
 
     static final int numberOfCharges = 19;
+    private Tag<Item> allowedItems = null;
 
     public ItemKittyKatsStaff() {
         super(new Item.Properties()
-        .group(KittyKatsStaff.CREATIVE_TAB)
-        .maxStackSize(1)
-        .maxDamage(numberOfCharges + 1));
+                .group(KittyKatsStaff.CREATIVE_TAB)
+                .maxStackSize(1)
+                .maxDamage(numberOfCharges + 1));
     }
 
     public boolean outOfUses(@Nonnull ItemStack stack) {
         return stack.getDamage() >= (stack.getMaxDamage() - 1);
     }
-
-    private Tag<Item> allowedItems = null;
 
     /**
      * Return whether this item is repairable in an anvil.
@@ -45,7 +48,7 @@ public class ItemKittyKatsStaff extends Item {
         }
 
         for (int i = 0; i < allowedItems.getAllElements().size(); i++) {
-            if (allowedItems.contains(repairMaterial.getItem())){
+            if (allowedItems.contains(repairMaterial.getItem())) {
                 return true;
             }
         }
@@ -62,15 +65,15 @@ public class ItemKittyKatsStaff extends Item {
         int randomSkinValue = random.nextInt((max - min) + 1) + min;
 
         //The position the player is looking, this is used as the position the ocelot spawns.
+        Vec3d vec3d = player.getEyePosition(1.0F);
+        Vec3d vec3d1 = player.getLook(1.0F);
+        Vec3d vec3d2 = vec3d.add(vec3d1.x * 30, vec3d1.y * 30, vec3d1.z * 30);
+        BlockRayTraceResult rayTraceResult = world.rayTraceBlocks(new RayTraceContext(vec3d, vec3d2,
+                RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE, player));
 
-            Vec3d vec3d = player.getEyePosition(1.0F);
-            Vec3d vec3d1 = player.getLook(1.0F);
-            Vec3d vec3d2 = vec3d.add(vec3d1.x * 30, vec3d1.y * 30, vec3d1.z * 30);
-            BlockRayTraceResult rayTraceResult = world.rayTraceBlocks(new RayTraceContext(vec3d, vec3d2, RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE, player));
-
-            double x = rayTraceResult.getPos().getX();
-            double y = rayTraceResult.getPos().getY();
-            double z = rayTraceResult.getPos().getZ();
+        double x = rayTraceResult.getPos().getX();
+        double y = rayTraceResult.getPos().getY();
+        double z = rayTraceResult.getPos().getZ();
 
         if (hand == Hand.MAIN_HAND) {
             if (!outOfUses(item)) {
