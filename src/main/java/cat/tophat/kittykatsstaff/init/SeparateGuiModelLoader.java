@@ -1,11 +1,11 @@
-package com.mcmoddev.kittykatsstaff.init;
+package cat.tophat.kittykatsstaff.init;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Sets;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.mcmoddev.kittykatsstaff.KittyKatsStaff;
+import cat.tophat.kittykatsstaff.KittyKatsStaff;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.IBakedModel;
@@ -72,7 +72,8 @@ public class SeparateGuiModelLoader implements ICustomModelLoader {
         }
 
         public Model(@Nullable ResourceLocation baseModel, @Nullable ResourceLocation guiModel,
-                     ImmutableMap<String, String> baseModelTextures, ImmutableMap<String, String> guiModelTextures,
+                     ImmutableMap<String, String> baseModelTextures, ImmutableMap<String,
+                String> guiModelTextures,
                      String particleTexture) {
             this.baseModel = baseModel;
             this.guiModel = guiModel;
@@ -101,8 +102,10 @@ public class SeparateGuiModelLoader implements ICustomModelLoader {
                 locs.add(new ResourceLocation(particleTexture));
             }
 
-            baseModelTextures.values().stream().filter(e -> !e.startsWith("#")).forEach(e -> locs.add(new ResourceLocation(e)));
-            guiModelTextures.values().stream().filter(e -> !e.startsWith("#")).forEach(e -> locs.add(new ResourceLocation(e)));
+            baseModelTextures.values().stream().filter(e -> !e.startsWith("#")).forEach(e ->
+                    locs.add(new ResourceLocation(e)));
+            guiModelTextures.values().stream().filter(e -> !e.startsWith("#")).forEach(e ->
+                    locs.add(new ResourceLocation(e)));
             return locs;
         }
 
@@ -162,7 +165,8 @@ public class SeparateGuiModelLoader implements ICustomModelLoader {
         }
 
         @Override
-        public IBakedModel bake(IModelState state, VertexFormat format, Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
+        public IBakedModel bake(IModelState state, VertexFormat format, Function<ResourceLocation,
+                TextureAtlasSprite> bakedTextureGetter) {
             IModel baseIModel = ModelLoaderRegistry.getModelOrMissing(baseModel);
             if (!baseModelTextures.isEmpty()) {
                 baseIModel = baseIModel.retexture(baseModelTextures);
@@ -188,7 +192,8 @@ public class SeparateGuiModelLoader implements ICustomModelLoader {
         private final IModelState state;
         private final TextureAtlasSprite particleTexture;
 
-        public BakedModel(IBakedModel baseModel, IBakedModel guiModel, IModelState state, TextureAtlasSprite particleTexture) {
+        public BakedModel(IBakedModel baseModel, IBakedModel guiModel, IModelState state,
+                          TextureAtlasSprite particleTexture) {
             this.baseModel = baseModel;
             this.guiModel = guiModel;
             this.state = state;
@@ -226,7 +231,8 @@ public class SeparateGuiModelLoader implements ICustomModelLoader {
         }
 
         @Override
-        public Pair<? extends IBakedModel, Matrix4f> handlePerspective(ItemCameraTransforms.TransformType cameraTransformType) {
+        public Pair<? extends IBakedModel, Matrix4f>
+        handlePerspective(ItemCameraTransforms.TransformType cameraTransformType) {
             if (cameraTransformType == ItemCameraTransforms.TransformType.GUI) {
                 return guiModel.handlePerspective(cameraTransformType);
             }

@@ -1,4 +1,4 @@
-package com.mcmoddev.kittykatsstaff.common.items;
+package cat.tophat.kittykatsstaff.common.items;
 
 import net.minecraft.entity.passive.EntityOcelot;
 import net.minecraft.entity.player.EntityPlayer;

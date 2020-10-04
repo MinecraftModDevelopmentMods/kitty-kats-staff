@@ -1,7 +1,7 @@
-package com.mcmoddev.kittykatsstaff.init;
+package cat.tophat.kittykatsstaff.init;
 
-import com.mcmoddev.kittykatsstaff.KittyKatsStaff;
-import com.mcmoddev.kittykatsstaff.api.KKSItems;
+import cat.tophat.kittykatsstaff.api.KKSItems;
+import cat.tophat.kittykatsstaff.KittyKatsStaff;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.event.ModelRegistryEvent;
@@ -22,6 +22,7 @@ public class Rendering {
     }
 
     private static void itemModels(Item item, int meta) {
-        ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(item.getRegistryName(), "inventory"));
+        ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(item.getRegistryName(),
+                "inventory"));
     }
 }

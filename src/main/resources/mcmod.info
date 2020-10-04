@@ -5,7 +5,7 @@
   "description": "A small mod with a magical staff for our lil friend kat.",
   "version": "${version}",
   "mcversion": "${mcversion}",
-  "url": "https://mcmoddev.com",
+  "url": "https://tophat.cat",
   "updateUrl": "https://minecraft.curseforge.com/projects/kitty-kats-staff/files",
   "authorList": ["ProxyNeko"],
   "credits": "ProxyNeko",

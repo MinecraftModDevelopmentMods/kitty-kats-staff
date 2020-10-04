@@ -1,6 +1,6 @@
-package com.mcmoddev.kittykatsstaff.api;
+package cat.tophat.kittykatsstaff.api;
 
-import com.mcmoddev.kittykatsstaff.KittyKatsStaff;
+import cat.tophat.kittykatsstaff.KittyKatsStaff;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
