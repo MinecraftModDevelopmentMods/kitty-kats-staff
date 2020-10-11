@@ -11,7 +11,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 public class KittyKatsStaff {
 
     public static final String MODID = "kittykatsstaff";
-    public static ItemGroup CREATIVE_TAB = new ItemGroup(KittyKatsStaff.MODID) {
+    public static final ItemGroup CREATIVE_TAB = new ItemGroup(KittyKatsStaff.MODID) {
         @Override
         public ItemStack createIcon() {
             return new ItemStack(ItemRegistry.KITTY_KATS_STAFF.get());
