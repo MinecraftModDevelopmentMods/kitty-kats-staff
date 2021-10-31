@@ -13,7 +13,7 @@ public class KittyKatsStaff {
     public static final String MODID = "kittykatsstaff";
     public static final ItemGroup CREATIVE_TAB = new ItemGroup(KittyKatsStaff.MODID) {
         @Override
-        public ItemStack createIcon() {
+        public ItemStack makeIcon() {
             return new ItemStack(ItemRegistry.KITTY_KATS_STAFF.get());
         }
     };

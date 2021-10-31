@@ -15,10 +15,10 @@ public class ItemRegistry {
 
     public static final RegistryObject<Item> KITTY_KATS_STAFF = ITEMS.register("staff_of_kittys",
             () -> new ItemKittyKatsStaff(new Item.Properties()
-                    .group(KittyKatsStaff.CREATIVE_TAB)
-                    .maxStackSize(1)
-                    .maxDamage(20), () -> ItemTags.FISHES));
+                    .tab(KittyKatsStaff.CREATIVE_TAB)
+                    .stacksTo(1)
+                    .durability(20), () -> ItemTags.FISHES));
     public static final RegistryObject<Item> OBSIDIAN_ROD = ITEMS.register("obsidian_rod", () ->
-            new Item(new Item.Properties().group(KittyKatsStaff.CREATIVE_TAB)));
+            new Item(new Item.Properties().tab(KittyKatsStaff.CREATIVE_TAB)));
 
 }

@@ -32,15 +32,15 @@ public class ItemKittyKatsStaff extends Item {
     }
 
     public boolean outOfUses(@Nonnull ItemStack stack) {
-        return stack.getDamage() >= (stack.getMaxDamage() - 1);
+        return stack.getDamageValue() >= (stack.getMaxDamage() - 1);
     }
 
     /**
      * Return whether this item is repairable in an anvil.
      */
     @Override
-    public boolean getIsRepairable(ItemStack repairableItem, ItemStack repairMaterial) {
-        for (int i = 0; i < allowedItems.get().getAllElements().size(); i++) {
+    public boolean isValidRepairItem(ItemStack repairableItem, ItemStack repairMaterial) {
+        for (int i = 0; i < allowedItems.get().getValues().size(); i++) {
             if (allowedItems.get().contains(repairMaterial.getItem())) {
                 return true;
             }
@@ -49,8 +49,8 @@ public class ItemKittyKatsStaff extends Item {
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(@Nonnull World world, @Nonnull PlayerEntity player, Hand hand) {
-    	ItemStack item = player.getHeldItem(hand);
+    public ActionResult<ItemStack> use(@Nonnull World world, @Nonnull PlayerEntity player, Hand hand) {
+    	ItemStack item = player.getItemInHand(hand);
     	
     	if (hand == Hand.MAIN_HAND) {
         	//randomise the type of the cat used when spawning.
@@ -61,35 +61,35 @@ public class ItemKittyKatsStaff extends Item {
 
             //The position the player is looking, this is used as the position the ocelot spawns.
             Vec3d vec3d = player.getEyePosition(1.0F);
-            Vec3d vec3d1 = player.getLook(1.0F);
+            Vec3d vec3d1 = player.getViewVector(1.0F);
             Vec3d vec3d2 = vec3d.add(vec3d1.x * 30, vec3d1.y * 30, vec3d1.z * 30);
-            BlockRayTraceResult rayTraceResult = world.rayTraceBlocks(new RayTraceContext(vec3d, vec3d2,
+            BlockRayTraceResult rayTraceResult = world.clip(new RayTraceContext(vec3d, vec3d2,
                     RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE, player));
 
-            double x = rayTraceResult.getPos().getX();
-            double y = rayTraceResult.getPos().getY();
-            double z = rayTraceResult.getPos().getZ();
+            double x = rayTraceResult.getBlockPos().getX();
+            double y = rayTraceResult.getBlockPos().getY();
+            double z = rayTraceResult.getBlockPos().getZ();
             if (!outOfUses(item)) {
             	
-                if (!world.isRemote) {
+                if (!world.isClientSide) {
                     CatEntity cat = new CatEntity(EntityType.CAT, world);
-                    cat.setLocationAndAngles(x, y + 1, z, player.rotationYaw, 0.0F);
-                    cat.setTamed(true);
-                    cat.setTamedBy(player);
+                    cat.moveTo(x, y + 1, z, player.yRot, 0.0F);
+                    cat.setTame(true);
+                    cat.tame(player);
                     cat.setCatType(randomSkinValue);
-                    world.addEntity(cat);
+                    world.addFreshEntity(cat);
                 }
 
-                world.playSound(null, x, y, z, SoundEvents.ENTITY_EGG_THROW, SoundCategory.PLAYERS,
-                        0.5F, 0.4F / (world.rand.nextFloat() * 0.4F + 0.8F));
+                world.playSound(null, x, y, z, SoundEvents.EGG_THROW, SoundCategory.PLAYERS,
+                        0.5F, 0.4F / (world.random.nextFloat() * 0.4F + 0.8F));
 
                 if (!player.isCreative()) {
-                    item.damageItem(1, player, (consumer) -> consumer.sendBreakAnimation(hand));
-                    player.getCooldownTracker().setCooldown(this, 1200);
+                    item.hurtAndBreak(1, player, (consumer) -> consumer.broadcastBreakEvent(hand));
+                    player.getCooldowns().addCooldown(this, 1200);
                 }
             } else {
-                world.playSound(null, x, y, z, SoundEvents.ENTITY_ITEM_BREAK, SoundCategory.PLAYERS,
-                        0.5F, 0.4F / (world.rand.nextFloat() * 0.4F + 0.8F));
+                world.playSound(null, x, y, z, SoundEvents.ITEM_BREAK, SoundCategory.PLAYERS,
+                        0.5F, 0.4F / (world.random.nextFloat() * 0.4F + 0.8F));
             }
         }
         return new ActionResult<>(ActionResultType.SUCCESS, item);
