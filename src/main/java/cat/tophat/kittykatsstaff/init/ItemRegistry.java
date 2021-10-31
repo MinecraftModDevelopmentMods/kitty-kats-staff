@@ -2,9 +2,9 @@ package cat.tophat.kittykatsstaff.init;
 
 import cat.tophat.kittykatsstaff.KittyKatsStaff;
 import cat.tophat.kittykatsstaff.common.items.ItemKittyKatsStaff;
-import net.minecraft.item.Item;
 import net.minecraft.tags.ItemTags;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraft.world.item.Item;
+import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
