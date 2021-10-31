@@ -22,7 +22,9 @@
       "conditions": {
         "items": [
           {
-            "item": "kittykatsstaff:staff_of_kittys"
+            "items": [
+              "kittykatsstaff:staff_of_kittys"
+            ]
           }
         ]
       }
