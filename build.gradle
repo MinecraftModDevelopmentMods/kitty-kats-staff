@@ -26,7 +26,7 @@ version = project.mod_version
 group = "${project.mod_group}.${project.mod_id}"
 archivesBaseName = project.mod_id
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(16)
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 minecraft {
     mappings channel: project.mapping_channel, version: project.mapping_version
@@ -40,7 +40,7 @@ minecraft {
         }
 
         server {
-            workingDirectory project.file('run')
+            workingDirectory project.file('runServer')
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'info'
             mods.create("${project.mod_id}").source(sourceSets.main)
@@ -88,15 +88,3 @@ jar {
 
 jar.finalizedBy('reobfJar')
 
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            artifact jar
-        }
-    }
-    repositories {
-        maven {
-            url "file://${project.projectDir}/mcmodsrepo"
-        }
-    }
-}

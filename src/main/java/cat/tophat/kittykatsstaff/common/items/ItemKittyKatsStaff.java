@@ -2,6 +2,7 @@ package cat.tophat.kittykatsstaff.common.items;
 
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.Tag;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -16,6 +17,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.util.Lazy;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nonnull;
 import java.util.Random;
@@ -23,11 +25,9 @@ import java.util.function.Supplier;
 
 public class ItemKittyKatsStaff extends Item {
 
-    private final Lazy<Tag<Item>> allowedItems;
 
-    public ItemKittyKatsStaff(Item.Properties properties, Supplier<Tag<Item>> tagSupplier) {
+    public ItemKittyKatsStaff(Item.Properties properties) {
         super(properties);
-        this.allowedItems = Lazy.of(tagSupplier);
     }
 
     public boolean outOfUses(@Nonnull ItemStack stack) {
@@ -39,10 +39,8 @@ public class ItemKittyKatsStaff extends Item {
      */
     @Override
     public boolean isValidRepairItem(ItemStack repairableItem, ItemStack repairMaterial) {
-        for (int i = 0; i < allowedItems.get().getValues().size(); i++) {
-            if (allowedItems.get().contains(repairMaterial.getItem())) {
+        if (ForgeRegistries.ITEMS.tags().getTag(ItemTags.FISHES).contains(repairMaterial.getItem())) {
                 return true;
-            }
         }
         return false;
     }
