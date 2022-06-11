@@ -2,11 +2,10 @@ package cat.tophat.kittykatsstaff.init;
 
 import cat.tophat.kittykatsstaff.KittyKatsStaff;
 import cat.tophat.kittykatsstaff.common.items.ItemKittyKatsStaff;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
 public class ItemRegistry {
 
@@ -17,7 +16,7 @@ public class ItemRegistry {
             () -> new ItemKittyKatsStaff(new Item.Properties()
                     .tab(KittyKatsStaff.CREATIVE_TAB)
                     .stacksTo(1)
-                    .durability(20), () -> ItemTags.FISHES));
+                    .durability(20)));
     public static final RegistryObject<Item> OBSIDIAN_ROD = ITEMS.register("obsidian_rod", () ->
             new Item(new Item.Properties().tab(KittyKatsStaff.CREATIVE_TAB)));
 
