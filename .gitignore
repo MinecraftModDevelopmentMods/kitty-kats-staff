@@ -22,7 +22,6 @@ eclipse
 run/*
 runServer/*
 logs/*
-runServer/*
 
 # Files from Forge MDK
 forge*changelog.txt
