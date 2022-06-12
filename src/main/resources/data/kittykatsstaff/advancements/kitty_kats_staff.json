@@ -1,15 +1,15 @@
 {
   "display": {
     "title": {
-      "text": "You're a witch!",
+      "text": "You're A Witch!",
       "color": "green"
     },
     "description": {
-      "text": "Crafted the Staff of Kittys! The young witches best friend.",
+      "text": "Crafted the Staff of Kitties! The young witches best friend!",
       "color": "yellow"
     },
     "icon": {
-      "item": "kittykatsstaff:staff_of_kittys"
+      "item": "kittykatsstaff:staff_of_kitties"
     },
     "frame": "goal",
     "show_toast": true,
@@ -23,7 +23,7 @@
         "items": [
           {
             "items": [
-              "kittykatsstaff:staff_of_kittys"
+              "kittykatsstaff:staff_of_kitties"
             ]
           }
         ]

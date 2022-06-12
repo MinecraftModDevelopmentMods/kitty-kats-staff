@@ -1,7 +1,7 @@
-package cat.tophat.kittykatsstaff.init;
+package dev.tophatcat.kittykatsstaff.init;
 
-import cat.tophat.kittykatsstaff.KittyKatsStaff;
-import cat.tophat.kittykatsstaff.common.items.ItemKittyKatsStaff;
+import dev.tophatcat.kittykatsstaff.KittyKatsStaff;
+import dev.tophatcat.kittykatsstaff.common.items.ItemKittyKatsStaff;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -10,9 +10,9 @@ import net.minecraftforge.registries.RegistryObject;
 public class ItemRegistry {
 
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS,
-            KittyKatsStaff.MODID);
+            KittyKatsStaff.MOD_ID);
 
-    public static final RegistryObject<Item> KITTY_KATS_STAFF = ITEMS.register("staff_of_kittys",
+    public static final RegistryObject<Item> KITTY_KATS_STAFF = ITEMS.register("staff_of_kitties",
             () -> new ItemKittyKatsStaff(new Item.Properties()
                     .tab(KittyKatsStaff.CREATIVE_TAB)
                     .stacksTo(1)

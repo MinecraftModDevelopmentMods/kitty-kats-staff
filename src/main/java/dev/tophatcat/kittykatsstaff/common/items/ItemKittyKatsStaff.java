@@ -1,4 +1,4 @@
-package cat.tophat.kittykatsstaff.common.items;
+package dev.tophatcat.kittykatsstaff.common.items;
 
 import net.minecraft.core.Registry;
 import net.minecraft.sounds.SoundEvents;
@@ -38,12 +38,14 @@ public class ItemKittyKatsStaff extends Item {
      * Return whether this item is repairable in an anvil.
      */
     @Override
-    public boolean isValidRepairItem(ItemStack repairableItem, ItemStack repairMaterial) {
+    public boolean isValidRepairItem(@Nonnull ItemStack repairableItem, ItemStack repairMaterial) {
         return ForgeRegistries.ITEMS.tags().getTag(ItemTags.FISHES).contains(repairMaterial.getItem());
     }
 
+    @Nonnull
     @Override
-    public InteractionResultHolder<ItemStack> use(@Nonnull Level world, @Nonnull Player player, InteractionHand hand) {
+    public InteractionResultHolder<ItemStack> use(@Nonnull Level world,
+                                                  @Nonnull Player player, @Nonnull InteractionHand hand) {
     	ItemStack item = player.getItemInHand(hand);
     	
     	if (hand == InteractionHand.MAIN_HAND) {
@@ -70,7 +72,9 @@ public class ItemKittyKatsStaff extends Item {
                     cat.moveTo(x, y + 1, z, player.getYRot(), 0.0F);
                     cat.setTame(true);
                     cat.tame(player);
-                    Registry.CAT_VARIANT.getTag(CatVariantTags.DEFAULT_SPAWNS).flatMap(holders -> holders.getRandomElement(random)).ifPresentOrElse(stuff -> cat.setCatVariant(stuff.value()), () -> cat.setCatVariant(CatVariant.ALL_BLACK));
+                    Registry.CAT_VARIANT.getTag(CatVariantTags.DEFAULT_SPAWNS).flatMap(holders
+                            -> holders.getRandomElement(random)).ifPresentOrElse(stuff
+                            -> cat.setCatVariant(stuff.value()), () -> cat.setCatVariant(CatVariant.ALL_BLACK));
                     world.addFreshEntity(cat);
                 }
 
