@@ -39,10 +39,7 @@ public class ItemKittyKatsStaff extends Item {
      */
     @Override
     public boolean isValidRepairItem(ItemStack repairableItem, ItemStack repairMaterial) {
-        if (ForgeRegistries.ITEMS.tags().getTag(ItemTags.FISHES).contains(repairMaterial.getItem())) {
-                return true;
-        }
-        return false;
+        return ForgeRegistries.ITEMS.tags().getTag(ItemTags.FISHES).contains(repairMaterial.getItem());
     }
 
     @Override
