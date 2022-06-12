@@ -43,6 +43,7 @@ minecraft {
             workingDirectory project.file('runServer')
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'info'
+            args '--singleplayer', "yes", '--nogui', "true"
             mods.create("${project.mod_id}").source(sourceSets.main)
         }
 

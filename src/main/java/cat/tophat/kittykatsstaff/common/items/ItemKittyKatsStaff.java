@@ -1,14 +1,17 @@
 package cat.tophat.kittykatsstaff.common.items;
 
+import net.minecraft.core.Registry;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.CatVariantTags;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.Tag;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.Cat;
+import net.minecraft.world.entity.animal.CatVariant;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -16,12 +19,9 @@ import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.util.Lazy;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nonnull;
-import java.util.Random;
-import java.util.function.Supplier;
 
 public class ItemKittyKatsStaff extends Item {
 
@@ -39,10 +39,7 @@ public class ItemKittyKatsStaff extends Item {
      */
     @Override
     public boolean isValidRepairItem(ItemStack repairableItem, ItemStack repairMaterial) {
-        if (ForgeRegistries.ITEMS.tags().getTag(ItemTags.FISHES).contains(repairMaterial.getItem())) {
-                return true;
-        }
-        return false;
+        return ForgeRegistries.ITEMS.tags().getTag(ItemTags.FISHES).contains(repairMaterial.getItem());
     }
 
     @Override
@@ -51,10 +48,10 @@ public class ItemKittyKatsStaff extends Item {
     	
     	if (hand == InteractionHand.MAIN_HAND) {
         	//randomise the type of the cat used when spawning.
-            Random random = new Random();
+            RandomSource random = world.random;
             int min = 1;
             int max = 3;
-            int randomSkinValue = random.nextInt((max - min) + 1) + min;
+            //int randomSkinValue = random.nextInt((max - min) + 1) + min;
 
             //The position the player is looking, this is used as the position the ocelot spawns.
             Vec3 vec3d = player.getEyePosition(1.0F);
@@ -73,7 +70,7 @@ public class ItemKittyKatsStaff extends Item {
                     cat.moveTo(x, y + 1, z, player.getYRot(), 0.0F);
                     cat.setTame(true);
                     cat.tame(player);
-                    cat.setCatType(randomSkinValue);
+                    Registry.CAT_VARIANT.getTag(CatVariantTags.DEFAULT_SPAWNS).flatMap(holders -> holders.getRandomElement(random)).ifPresentOrElse(stuff -> cat.setCatVariant(stuff.value()), () -> cat.setCatVariant(CatVariant.ALL_BLACK));
                     world.addFreshEntity(cat);
                 }
 
