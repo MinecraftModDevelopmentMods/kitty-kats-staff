@@ -1,9 +1,8 @@
-package cat.tophat.kittykatsstaff.common.items;
+package dev.tophatcat.kittykatsstaff.common.items;
 
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.Tag;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
@@ -16,12 +15,10 @@ import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.util.Lazy;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nonnull;
 import java.util.Random;
-import java.util.function.Supplier;
 
 public class ItemKittyKatsStaff extends Item {
 
@@ -38,17 +35,16 @@ public class ItemKittyKatsStaff extends Item {
      * Return whether this item is repairable in an anvil.
      */
     @Override
-    public boolean isValidRepairItem(ItemStack repairableItem, ItemStack repairMaterial) {
-        if (ForgeRegistries.ITEMS.tags().getTag(ItemTags.FISHES).contains(repairMaterial.getItem())) {
-                return true;
-        }
-        return false;
+    public boolean isValidRepairItem(@Nonnull ItemStack repairableItem, ItemStack repairMaterial) {
+        return ForgeRegistries.ITEMS.tags().getTag(ItemTags.FISHES).contains(repairMaterial.getItem());
     }
 
+    @Nonnull
     @Override
-    public InteractionResultHolder<ItemStack> use(@Nonnull Level world, @Nonnull Player player, InteractionHand hand) {
+    public InteractionResultHolder<ItemStack> use(@Nonnull Level world, @Nonnull Player player,
+                                                  @Nonnull InteractionHand hand) {
     	ItemStack item = player.getItemInHand(hand);
-    	
+
     	if (hand == InteractionHand.MAIN_HAND) {
         	//randomise the type of the cat used when spawning.
             Random random = new Random();
@@ -67,7 +63,7 @@ public class ItemKittyKatsStaff extends Item {
             double y = rayTraceResult.getBlockPos().getY();
             double z = rayTraceResult.getBlockPos().getZ();
             if (!outOfUses(item)) {
-            	
+
                 if (!world.isClientSide) {
                     Cat cat = new Cat(EntityType.CAT, world);
                     cat.moveTo(x, y + 1, z, player.getYRot(), 0.0F);

@@ -1,7 +1,7 @@
 {
   "loader": "forge:separate-perspective",
   "base": {
-    "parent": "kittykatsstaff:item/staff_of_kittys_handheld"
+    "parent": "kittykatsstaff:item/staff_of_kitties_handheld"
   },
   "perspectives": {
     "gui": {
