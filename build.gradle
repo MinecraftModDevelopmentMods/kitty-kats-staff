@@ -228,7 +228,7 @@ final var actualDateTime = OffsetDateTime.now(ZoneOffset.UTC).withNano(0)
 
 license {
     ignoreFailures = false
-    header = project.file('LicenseHeader.md')
+    header = project.file('LicenseHeader.txt')
     include '**/*.java'
     include '**/*.kt'
     exclude '**/package-info.java'
