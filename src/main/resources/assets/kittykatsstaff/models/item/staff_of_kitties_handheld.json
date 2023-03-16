@@ -1,7 +1,7 @@
 {
 	"textures": {
-		"1": "kittykatsstaff:items/staff_of_kitties",
-		"particle": "kittykatsstaff:items/staff_of_kitties"
+		"1": "kittykatsstaff:item/staff_of_kitties",
+		"particle": "kittykatsstaff:item/staff_of_kitties"
 	},
 	"elements": [
 		{

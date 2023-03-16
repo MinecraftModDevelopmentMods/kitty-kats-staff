@@ -1,6 +1,28 @@
-package dev.tophatcat.kittykatsstaff.common.items;
+/*
+ * Kitty Kat's Staff - https://github.com/Witixin1512/kitty-kats-staff
+ * Copyright (C) 2016-2023 <KiriCattus>
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation;
+ * Specifically version 2.1 of the License.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
+ * USA
+ * https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html
+ */
+package witixin.kittykatsstaff.common.items;
 
-import net.minecraft.core.Registry;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.CatVariantTags;
@@ -10,6 +32,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.animal.Cat;
 import net.minecraft.world.entity.animal.CatVariant;
 import net.minecraft.world.entity.player.Player;
@@ -47,13 +70,10 @@ public class ItemKittyKatsStaff extends Item {
     public InteractionResultHolder<ItemStack> use(@Nonnull Level world,
                                                   @Nonnull Player player, @Nonnull InteractionHand hand) {
     	ItemStack item = player.getItemInHand(hand);
-    	
+
     	if (hand == InteractionHand.MAIN_HAND) {
         	//randomise the type of the cat used when spawning.
             RandomSource random = world.random;
-            int min = 1;
-            int max = 3;
-            //int randomSkinValue = random.nextInt((max - min) + 1) + min;
 
             //The position the player is looking, this is used as the position the ocelot spawns.
             Vec3 vec3d = player.getEyePosition(1.0F);
@@ -66,15 +86,15 @@ public class ItemKittyKatsStaff extends Item {
             double y = rayTraceResult.getBlockPos().getY();
             double z = rayTraceResult.getBlockPos().getZ();
             if (!outOfUses(item)) {
-            	
+
                 if (!world.isClientSide) {
-                    Cat cat = new Cat(EntityType.CAT, world);
-                    cat.moveTo(x, y + 1, z, player.getYRot(), 0.0F);
+                    Cat cat = EntityType.CAT.spawn((ServerLevel) world, new BlockPos(x, y + 1, z), MobSpawnType.MOB_SUMMONED);
+                    cat.setYRot(player.getYRot());
                     cat.setTame(true);
                     cat.tame(player);
-                    Registry.CAT_VARIANT.getTag(CatVariantTags.DEFAULT_SPAWNS).flatMap(holders
+                    BuiltInRegistries.CAT_VARIANT.getTag(CatVariantTags.DEFAULT_SPAWNS).flatMap(holders
                             -> holders.getRandomElement(random)).ifPresentOrElse(stuff
-                            -> cat.setCatVariant(stuff.value()), () -> cat.setCatVariant(CatVariant.ALL_BLACK));
+                            -> cat.setVariant(stuff.value()), () -> cat.setVariant(BuiltInRegistries.CAT_VARIANT.getOrThrow(CatVariant.ALL_BLACK)));
                     world.addFreshEntity(cat);
                 }
 
@@ -85,11 +105,13 @@ public class ItemKittyKatsStaff extends Item {
                     item.hurtAndBreak(1, player, (consumer) -> consumer.broadcastBreakEvent(hand));
                     player.getCooldowns().addCooldown(this, 1200);
                 }
+                return InteractionResultHolder.success(item);
             } else {
                 world.playSound(null, x, y, z, SoundEvents.ITEM_BREAK, SoundSource.PLAYERS,
                         0.5F, 0.4F / (world.random.nextFloat() * 0.4F + 0.8F));
+                return InteractionResultHolder.pass(item);
             }
         }
-        return new InteractionResultHolder<>(InteractionResult.SUCCESS, item);
+        return new InteractionResultHolder<>(InteractionResult.PASS, item);
     }
 }

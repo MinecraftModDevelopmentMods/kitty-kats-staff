@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "kittykatsstaff:items/obsidian_rod"
+    "layer0": "kittykatsstaff:item/obsidian_rod"
   }
 }
