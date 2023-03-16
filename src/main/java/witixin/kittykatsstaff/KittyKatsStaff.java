@@ -49,7 +49,7 @@ public class KittyKatsStaff {
             (configurator) -> configurator
                 .icon(() -> ItemRegistry.KITTY_KATS_STAFF.get().getDefaultInstance())
                 .title(Component.translatable("itemGroup.kittykatsstaff"))
-                .displayItems((features, output, operator) -> {
+                .displayItems((features, output) -> {
                     output.accept(ItemRegistry.KITTY_KATS_STAFF.get());
                     output.accept(ItemRegistry.OBSIDIAN_ROD.get());
                 })

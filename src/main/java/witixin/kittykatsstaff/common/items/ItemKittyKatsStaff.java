@@ -88,7 +88,7 @@ public class ItemKittyKatsStaff extends Item {
             if (!outOfUses(item)) {
 
                 if (!world.isClientSide) {
-                    Cat cat = EntityType.CAT.spawn((ServerLevel) world, new BlockPos(x, y + 1, z), MobSpawnType.MOB_SUMMONED);
+                    Cat cat = EntityType.CAT.spawn((ServerLevel) world, BlockPos.containing(x, y + 1, z), MobSpawnType.MOB_SUMMONED);
                     cat.setYRot(player.getYRot());
                     cat.setTame(true);
                     cat.tame(player);
