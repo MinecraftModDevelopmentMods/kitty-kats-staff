@@ -183,7 +183,7 @@ task publishToCurseForge(type: TaskPublishCurseForge) {
 
     //mainFile.addRequirement('fabric-api') //Fabric API slug
     //mainFile.addEmbedded('cloth-config') //Cloth Config slug
-    mainFile.changelog = "Updated to 1.19.3!"
+    mainFile.changelog = "Updated to 1.19.4!"
 }
 
 tasks.publishToCurseForge.dependsOn(tasks.assemble)
