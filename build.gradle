@@ -30,7 +30,6 @@ minecraft {
     runs {
         client {
             workingDirectory project.file('run')
-            //TODO GL RUNS
             property 'forge.logging.markers', 'REGISTRIES'
 
             property 'forge.logging.console.level', 'debug'
@@ -105,7 +104,6 @@ repositories {
 
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
-
 }
 
 processResources {
@@ -183,7 +181,7 @@ task publishToCurseForge(type: TaskPublishCurseForge) {
 
     //mainFile.addRequirement('fabric-api') //Fabric API slug
     //mainFile.addEmbedded('cloth-config') //Cloth Config slug
-    mainFile.changelog = "Updated to 1.19.4!"
+    mainFile.changelog = "Updated to 1.20.1!"
 }
 
 tasks.publishToCurseForge.dependsOn(tasks.assemble)

@@ -1,5 +1,5 @@
 {
-  "loader": "forge:separate-perspective",
+  "loader": "forge:separate_transforms",
   "base": {
     "parent": "kittykatsstaff:item/staff_of_kitties_handheld"
   },

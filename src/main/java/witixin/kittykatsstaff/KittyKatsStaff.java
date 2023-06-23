@@ -20,11 +20,12 @@
  */
 package witixin.kittykatsstaff;
 
+import net.minecraft.core.registries.Registries;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.RegistryObject;
 import witixin.kittykatsstaff.init.ItemRegistry;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
-import net.minecraftforge.event.CreativeModeTabEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -34,25 +35,20 @@ public class KittyKatsStaff {
 
     public static final String MOD_ID = "kittykatsstaff";
 
-    public static CreativeModeTab KITTY_TAB;
+    public static final DeferredRegister<CreativeModeTab> CREATIVE_TABS = DeferredRegister.create(
+        Registries.CREATIVE_MODE_TAB, MOD_ID);
+    public static final RegistryObject<CreativeModeTab> KITTY_TAB = CREATIVE_TABS.register("creative_tab", () ->
+        CreativeModeTab.builder()
+            .icon(() -> ItemRegistry.KITTY_KATS_STAFF.get().getDefaultInstance())
+            .title(Component.translatable("itemGroup.kittykatsstaff"))
+            .displayItems((parameters, output) -> {
+                output.accept(ItemRegistry.KITTY_KATS_STAFF.get());
+                output.accept(ItemRegistry.OBSIDIAN_ROD.get());
+            }).build());
 
     public KittyKatsStaff() {
         final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-        modEventBus.addListener(KittyKatsStaff::registerCustomTab);
+        CREATIVE_TABS.register(modEventBus);
         ItemRegistry.ITEMS.register(modEventBus);
-    }
-
-    public static void registerCustomTab(final CreativeModeTabEvent.Register event) {
-
-        KITTY_TAB = event.registerCreativeModeTab(
-            new ResourceLocation(MOD_ID, "creative_tab"),
-            (configurator) -> configurator
-                .icon(() -> ItemRegistry.KITTY_KATS_STAFF.get().getDefaultInstance())
-                .title(Component.translatable("itemGroup.kittykatsstaff"))
-                .displayItems((features, output) -> {
-                    output.accept(ItemRegistry.KITTY_KATS_STAFF.get());
-                    output.accept(ItemRegistry.OBSIDIAN_ROD.get());
-                })
-                .build());
     }
 }
