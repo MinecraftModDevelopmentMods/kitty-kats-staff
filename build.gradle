@@ -178,10 +178,7 @@ task publishToCurseForge(type: TaskPublishCurseForge) {
     mainFile.addModLoader(curseforge_mod_loader)
     mainFile.addGameVersion(minecraft_version)
     mainFile.addJavaVersion(curseforge_java_version)
-
-    //mainFile.addRequirement('fabric-api') //Fabric API slug
-    //mainFile.addEmbedded('cloth-config') //Cloth Config slug
-    mainFile.changelog = "Updated to 1.20.1!"
+    mainFile.changelog = changelog
 }
 
 tasks.publishToCurseForge.dependsOn(tasks.assemble)

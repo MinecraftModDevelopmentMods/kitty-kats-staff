@@ -23,6 +23,7 @@ package witixin.kittykatsstaff.common.items;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.CatVariantTags;
@@ -32,6 +33,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.animal.Cat;
 import net.minecraft.world.entity.animal.CatVariant;
@@ -93,8 +95,8 @@ public class ItemKittyKatsStaff extends Item {
                     cat.setTame(true);
                     cat.tame(player);
                     BuiltInRegistries.CAT_VARIANT.getTag(CatVariantTags.DEFAULT_SPAWNS).flatMap(holders
-                            -> holders.getRandomElement(random)).ifPresentOrElse(stuff
-                            -> cat.setVariant(stuff.value()), () -> cat.setVariant(BuiltInRegistries.CAT_VARIANT.getOrThrow(CatVariant.ALL_BLACK)));
+                            -> holders.getRandomElement(random)).ifPresentOrElse(variant
+                            -> cat.setVariant(variant.value()), () -> cat.setVariant(BuiltInRegistries.CAT_VARIANT.getOrThrow(CatVariant.ALL_BLACK)));
                     world.addFreshEntity(cat);
                 }
 
@@ -113,5 +115,18 @@ public class ItemKittyKatsStaff extends Item {
             }
         }
         return new InteractionResultHolder<>(InteractionResult.PASS, item);
+    }
+
+    @Override
+    public InteractionResult interactLivingEntity(final ItemStack itemStack, final Player player, final LivingEntity livingEntity, final InteractionHand hand){
+        if (player.level().isClientSide) return InteractionResult.PASS;
+        if (livingEntity instanceof Cat cat && player.getUUID().equals(cat.getOwnerUUID())) {
+            cat.playSound(SoundEvents.CAT_PURR, 2.0f, 1.0f);
+            cat.setLying(true);
+            cat.spawnChildFromBreeding((ServerLevel) cat.level(), cat);
+            player.getCooldowns().addCooldown(this, 20 * 20);
+            return InteractionResult.CONSUME;
+        }
+        return super.interactLivingEntity(itemStack, player, livingEntity, hand);
     }
 }
