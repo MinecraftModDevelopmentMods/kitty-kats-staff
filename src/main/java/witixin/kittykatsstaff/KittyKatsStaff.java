@@ -1,6 +1,6 @@
 /*
  * Kitty Kat's Staff - https://github.com/Witixin1512/kitty-kats-staff
- * Copyright (C) 2016-2023 <KiriCattus>
+ * Copyright (C) 2016-2024 <KiriCattus>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,14 +21,13 @@
 package witixin.kittykatsstaff;
 
 import net.minecraft.core.registries.Registries;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
 import witixin.kittykatsstaff.init.ItemRegistry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 @Mod(KittyKatsStaff.MOD_ID)
 public class KittyKatsStaff {
@@ -37,7 +36,7 @@ public class KittyKatsStaff {
 
     public static final DeferredRegister<CreativeModeTab> CREATIVE_TABS = DeferredRegister.create(
         Registries.CREATIVE_MODE_TAB, MOD_ID);
-    public static final RegistryObject<CreativeModeTab> KITTY_TAB = CREATIVE_TABS.register("creative_tab", () ->
+    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> KITTY_TAB = CREATIVE_TABS.register("creative_tab", () ->
         CreativeModeTab.builder()
             .icon(() -> ItemRegistry.KITTY_KATS_STAFF.get().getDefaultInstance())
             .title(Component.translatable("itemGroup.kittykatsstaff"))
@@ -46,9 +45,9 @@ public class KittyKatsStaff {
                 output.accept(ItemRegistry.OBSIDIAN_ROD.get());
             }).build());
 
-    public KittyKatsStaff() {
-        final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-        CREATIVE_TABS.register(modEventBus);
-        ItemRegistry.ITEMS.register(modEventBus);
+
+    public KittyKatsStaff(IEventBus modBus) {
+        CREATIVE_TABS.register(modBus);
+        ItemRegistry.ITEMS.register(modBus);
     }
 }
